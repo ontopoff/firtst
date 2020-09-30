@@ -36,13 +36,7 @@ public class Banknotes {
         for(int i = 0; i < bankM.length; ++i) {
             bankM[i] = myObj.nextLong();
         }
-        //for(int i = 0; i < bankM.length; ++i) {
-            //if(value / bankM[i] > 0) {
-                //System.out.println(i+ "------------------");
-                res += exchange(value, bankM, 0, denomination);
-                //--denomination[i];
-            //}
-        //}
+        res += exchange(value, bankM, 0, denomination);
         System.out.println(res);
     }
 }
