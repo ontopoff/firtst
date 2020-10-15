@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class RefactorInputClass {
 
     public long exchangeable(String value) throws IOException {
-        long longValue = 0;
+        long longValue;
         value = value.trim();
         value = value.replace('.', ',');
         if (value.indexOf(',') != -1) {

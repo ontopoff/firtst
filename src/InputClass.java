@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,23 +7,24 @@ import java.util.regex.Pattern;
 public class InputClass {
 
 
-    public long inputExchangeable() throws IOException {
-        Scanner myObj = new Scanner(System.in);
+    public long inputExchangeable(InputStream stream) throws IOException {
+        Scanner myObj = new Scanner(stream);
         RefactorInputClass refactor = new RefactorInputClass();
-        long longValue = 0;
+        long longValue;
 
         String value = myObj.nextLine();
 
         try {
             longValue = refactor.exchangeable(value);
         } catch(NumberFormatException e) {
-            longValue = inputExchangeable();
+            System.out.println(e);
+            longValue = inputExchangeable(stream);
         }
         return longValue;
     }
 
-    public Long[] Inputchanger(long value) throws IOException {
-        Scanner myObj = new Scanner(System.in);
+    public Long[] InputChanger(InputStream stream, long value) throws IOException {
+        Scanner myObj = new Scanner(stream);
         RefactorInputClass refactor = new RefactorInputClass();
         Long[] bankM = new Long[0];
         ArrayList<Long> inputList = new ArrayList<Long>();
@@ -61,7 +63,7 @@ public class InputClass {
             }
         } catch (NullArrayListException e) {
                 System.out.println(e);
-                bankM = Inputchanger(value);
+                bankM = InputChanger(stream, value);
         }
         return bankM;
     }
