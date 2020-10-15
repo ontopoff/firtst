@@ -1,5 +1,4 @@
 public class NullArrayListException extends Exception {
-    private int num;
 
     NullArrayListException() {
     }

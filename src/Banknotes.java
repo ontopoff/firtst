@@ -1,6 +1,4 @@
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Banknotes {
 
@@ -10,11 +8,11 @@ public class Banknotes {
         InputClass input = new InputClass();
         Exchanger func = new Exchanger();
 
-        long value = input.exchangeable();
-        Long[] bankM = input.changer(value);
+        long value = input.inputExchangeable();
+        Long[] bankM = input.Inputchanger(value);
         long denomination[] = new long[bankM.length];
 
-        res += func.exchange(value, bankM, 0, denomination);
+        res = func.exchange(value, bankM, 0, denomination);
         System.out.println(res);
     }
 }

@@ -3,6 +3,7 @@ public class Exchanger {
 
      public long exchange(long value, Long bankM[], int i, long denomination[]) {
         long temp = 0;
+
         if(value == 0) {
             for(int j = 0; j < denomination.length; ++j) {
                 if(denomination[j] != 0) {
@@ -12,6 +13,7 @@ public class Exchanger {
             System.out.println("");
             return 1;
         }
+
         for(int j = i; j < bankM.length; ++j) {
             if(value / bankM[j] > 0)
                 for (long k = value / bankM[j]; k > 0; --k) {
@@ -22,6 +24,7 @@ public class Exchanger {
                     value += bankM[j] * k;
                 }
         }
+
         return temp;
     }
 }
