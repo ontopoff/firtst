@@ -1,3 +1,4 @@
+import com.ontopoff.banknotes.Exchanger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -6,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class ExchangerTest {
 
     @Test
-    @DisplayName("Exchanger function test one")
+    @DisplayName("exchange function test one")
     public void testExchangeOne() {
         Exchanger exchanger = new Exchanger();
 
@@ -20,7 +21,7 @@ class ExchangerTest {
     }
 
     @Test
-    @DisplayName("Exchanger function test two")
+    @DisplayName("exchange function test two")
     public void testExchangeTwo() {
         Exchanger exchanger = new Exchanger();
 

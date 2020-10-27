@@ -1,3 +1,5 @@
+package com.ontopoff.banknotes;
+
 public class GreaterNumberException extends Exception {
     private long num;
 
@@ -6,6 +8,6 @@ public class GreaterNumberException extends Exception {
     }
 
     public String toString() {
-        return "GreaterNumberException[Number " + num + " greater then input value]";
+        return "com.ontopoff.banknotes.GreaterNumberException[Number " + num + " greater then input value]";
     }
 }

@@ -1,35 +1,48 @@
+package com.ontopoff.banknotes;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class InputClass {
 
 
     public long inputExchangeable(InputStream stream) throws IOException {
-        Scanner myObj = new Scanner(stream);
-        RefactorInputClass refactor = new RefactorInputClass();
+        Scanner inputBanknote = new Scanner(stream);
         long longValue;
 
-        String value = myObj.nextLine();
-
+        String value = inputBanknote.nextLine();
+        String beforeProcessingValue = value;
+        value = value.trim();
+        value = value.replace('.', ',');
+        if(value.indexOf(',') != -1) {
+            value = value.substring(0, value.indexOf(','));
+        }
+        Pattern pattern = Pattern.compile("^[\\d]+$");
+        Matcher matcher = pattern.matcher(value);
+        boolean found = matcher.matches();
         try {
-            longValue = refactor.exchangeable(value);
+            if((found) && (value.indexOf('0') != 0)) {
+                longValue = Long.parseLong(value);
+            } else {
+                throw new NumberFormatException();
+            }
         } catch(NumberFormatException e) {
-            System.out.println(e);
-            longValue = inputExchangeable(stream);
+            throw new NumberFormatException("Value " + beforeProcessingValue +  " has an invalid format!");
         }
         return longValue;
     }
 
-    public Long[] InputChanger(InputStream stream, long value) throws IOException {
-        Scanner myObj = new Scanner(stream);
+    public Long[] inputChanger(InputStream stream, long value) throws IOException {
+        Scanner inputBanknote = new Scanner(stream);
         RefactorInputClass refactor = new RefactorInputClass();
         Long[] bankM = new Long[0];
         ArrayList<Long> inputList = new ArrayList<Long>();
 
-        String strValues = myObj.nextLine();
+        String strValues = inputBanknote.nextLine();
         strValues = strValues.trim();
         strValues = strValues.replace('.', ',');
         String[] banknotes = strValues.split("\\s+");
@@ -63,7 +76,7 @@ public class InputClass {
             }
         } catch (NullArrayListException e) {
                 System.out.println(e);
-                bankM = InputChanger(stream, value);
+                bankM = inputChanger(stream, value);
         }
         return bankM;
     }

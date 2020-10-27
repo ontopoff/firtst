@@ -1,3 +1,5 @@
+package com.ontopoff.banknotes;
+
 public class Exchanger {
 
 
