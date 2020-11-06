@@ -25,7 +25,7 @@ public class ListClass implements java.util.List {
 
     @Override
     public int size() {
-        return this.size;
+        throw new UnsupportedOperationException("Этот метод не реализован!");
     }
 
     @Override
@@ -198,6 +198,7 @@ public class ListClass implements java.util.List {
                     this.head = next[listCurr];
                     next[listCurr] = -1;
                     cnt--;
+                    return data[listCurr];
                 } else {
                     int foundId = listCurr, beforeId = listCurr;
                     for (int i = 0; i < index; ++i) {
@@ -208,8 +209,9 @@ public class ListClass implements java.util.List {
                     next[beforeId] = next[foundId];
                     next[foundId] = -1;
                     cnt--;
+                    return data[foundId];
                 }
-            return data[listCurr];
+
         }
     }
 

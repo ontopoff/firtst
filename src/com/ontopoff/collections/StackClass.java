@@ -42,4 +42,8 @@ public class StackClass extends java.util.Stack {
     public boolean empty() {
         return cnt == 0;
     }
+
+    public int size() {
+        return this.cnt;
+    }
 }
