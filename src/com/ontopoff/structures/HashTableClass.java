@@ -3,6 +3,7 @@ package com.ontopoff.structures;
 import java.util.ArrayList;
 
 public class HashTableClass<K, V> {
+
     private ArrayList<LinkedListItem<K, V>> hashTable;
 
     private class LinkedListItem<K, V> {
@@ -49,7 +50,6 @@ public class HashTableClass<K, V> {
         LinkedListItem<K, V> node = getNode(key);
         try {
             if(node.equals(null)) {
-                return null;
             }
         } catch (NullPointerException e) {
             throw new NullPointerException("Элемент с таким ключом не был найден и не может быть удален");
@@ -70,6 +70,23 @@ public class HashTableClass<K, V> {
         return node.value;
     }
 
+    public boolean contains(K key) {
+        try {
+            if(key.equals(null)) {}
+        } catch (NullPointerException e) {
+            throw new NullPointerException("Ключ не поддерживает значение null");
+        }
+        LinkedListItem<K, V> node = getNode(key);
+        try {
+            if(node.equals(null)) {} else {
+                return true;
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Элемент с key = "+ key + " не был найден!");
+        }
+        return false;
+    }
+
     public V get(K key) {
         try {
             if(key.equals(null)) {}
@@ -81,7 +98,9 @@ public class HashTableClass<K, V> {
             if(node.equals(null)) {} else {
                 return node.value;
             }
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+            System.out.println("Элемент с key = "+ key + " не был найден!");
+        }
         return null;
     }
 
