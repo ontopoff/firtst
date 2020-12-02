@@ -44,12 +44,8 @@ public class InputClass {
 
         String strValues = inputBanknote.nextLine();
         strValues = strValues.trim();
-        strValues = strValues.replace('.', ',');
         String[] banknotes = strValues.split("\\s+");
         for(String bank : banknotes) {
-            if (bank.indexOf(',') != -1) {
-                bank = bank.substring(0, bank.indexOf(','));
-            }
             Pattern pattern = Pattern.compile("^[\\d]+$");
             Matcher matcher = pattern.matcher(bank);
             boolean found = matcher.matches();

@@ -17,7 +17,7 @@ class ExchangerTest {
         long denomination[] = new long[bankM.length];
         int i = 0;
 
-        long actualResult = exchanger.exchange(value,bankM, i, denomination);
+        long actualResult = exchanger.exchange(value, bankM, i, denomination);
         Assertions.assertEquals(1, actualResult);
     }
 
@@ -31,7 +31,21 @@ class ExchangerTest {
         long denomination[] = new long[bankM.length];
         int i = 0;
 
-        long actualResult = exchanger.exchange(value,bankM, i, denomination);
+        long actualResult = exchanger.exchange(value, bankM, i, denomination);
         Assertions.assertEquals(3, actualResult);
+    }
+
+    @Test
+    @DisplayName("exchange function third two")
+    public void testExchangeThree() {
+        Exchanger exchanger = new Exchanger();
+
+        long value = 10000;
+        Long[] bankM = {Long.valueOf(5000), Long.valueOf(3434), Long.valueOf(1103), Long.valueOf(1100), Long.valueOf(343), Long.valueOf(195), Long.valueOf(103), Long.valueOf(99)};
+        long denomination[] = new long[bankM.length];
+        int i = 0;
+
+        long actualResult = exchanger.exchange(value, bankM, i, denomination);
+        Assertions.assertEquals(2423, actualResult);
     }
 }

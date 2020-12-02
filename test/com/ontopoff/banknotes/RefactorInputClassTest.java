@@ -13,7 +13,7 @@ class RefactorInputClassTest {
 
     @ParameterizedTest
     @DisplayName("changer function test NumberFormatException")
-    @ValueSource(strings = {"Hello ","-fds"," -+"," 0" ,"FSD", ".432","   ", " -5"})
+    @ValueSource(strings = {"Hello ","-fds"," -+"," 0" ,"FSD", ".432","   ", " -5, 1.54, 10,3123"})
     public void throwsNumberFormatExceptionChanger(String strValue) {
         RefactorInputClass refactorInput = new RefactorInputClass();
 

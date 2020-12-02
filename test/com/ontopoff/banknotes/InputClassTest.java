@@ -35,7 +35,7 @@ class InputClassTest {
 
     @ParameterizedTest
     @DisplayName("inputChanger function test")
-    @ValueSource(strings = {"25 5 5 7 7 0 3", "FDS + 55 5 5 5 3 2 1", "1.5454 2.43243 3.43243 4"})
+    @ValueSource(strings = {"25 5 5 7 7 0 3", "FDS + 55 5 5 5 3 2 1", "1.5454 2.43243 3.43243 8 -10 0 5 5 4 15"})
     void testInputChanger(String strValue) throws IOException {
         InputClass input = new InputClass();
         InputStream stream = new ByteArrayInputStream(strValue.getBytes());
