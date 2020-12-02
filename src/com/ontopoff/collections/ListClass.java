@@ -10,22 +10,16 @@ public class ListClass implements java.util.List {
 
     private int head;
     private int size;
-    private int[] next;
-    Object[] data;
-    private int cnt;
+    private Object[] data;
 
-    ListClass(int size) {
-        this.size = size;
-        next = new int[size+1];
-        Arrays.fill(next, -1);
+    ListClass() {
+        this.size = 0;
         head = -1;
-        cnt = 0;
-        data = new Object[size+1];
     }
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException("Этот метод не реализован!");
+        return this.size;
     }
 
     @Override
@@ -35,18 +29,102 @@ public class ListClass implements java.util.List {
 
     @Override
     public boolean contains(Object value) {
-        if(cnt == 0) {
+        if (size == 0) {
             return false;
         }
         int currentId = this.head;
-        for(int listId = 0; listId < this.cnt; ++listId) {
-            if(data[currentId] == value) {
+        for (int listId = 0; listId < this.size; ++listId) {
+            if (data[currentId] == value) {
                 return true;
             } else {
-                currentId = next[currentId];
+                currentId++;
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean add(Object value) {
+        int listId = this.head;
+        if (listId == -1) {
+            this.head = 0;
+            data = new Object[1];
+            data[0] = value;
+            size++;
+        } else {
+            data = Arrays.copyOf(data, data.length + 1);
+            data[size] = value;
+            size++;
+        }
+        return true;
+    }
+
+    @Override
+    public Object get(int index) {
+        if (index < 0) {
+            throw new ArrayIndexOutOfBoundsException("Список не поддерживает отрицательные индексы");
+        } else if (index >= size) {
+            throw new ArrayIndexOutOfBoundsException("Индекс искомого элемента превосходит количество элементов списка");
+        } else {
+            return data[index];
+        }
+    }
+
+    @Override
+    public void add(int index, Object value) {
+        if (index < 0) {
+            throw new ArrayIndexOutOfBoundsException("Список не поддерживает отрицательные индексы");
+        } else if (index > size) {
+            throw new ArrayIndexOutOfBoundsException("Индекс вставляемого элемента превосходит размеры списка");
+        } else if (this.head == -1) {
+            this.head = 0;
+            data = new Object[1];
+            data[0] = value;
+            size++;
+        } else {
+            data = Arrays.copyOf(data, data.length + 1);
+            for (int i = size - 1; i >= index; --i) {
+                data[i + 1] = data[i];
+            }
+            data[index] = value;
+            ++size;
+        }
+    }
+
+    @Override
+    public Object remove(int index) {
+        if (index < 0) {
+            throw new ArrayIndexOutOfBoundsException("Список не поддерживает отрицательные индексы");
+        } else if (index >= size) {
+            throw new ArrayIndexOutOfBoundsException("Индекс удаляемого элемента превосходит размеры списка");
+        } else {
+            if (index == 0) {
+                System.out.println("Удаляемое значение: " + data[index]);
+                Object retValue = data[index];
+                Object[] cpyData = new Object[data.length - 1];
+                System.arraycopy(data, 1, cpyData, 0, cpyData.length);
+                data = new Object[cpyData.length];
+                System.arraycopy(cpyData, 0, data, 0, cpyData.length);
+                size--;
+                if (size == 0) {
+                    this.head = -1;
+                }
+                return retValue;
+            } else {
+                System.out.println("Удаляемое значение: " + data[index]);
+                Object retValue = data[index];
+                for (int i = index; i < size - 1; ++i) {
+                    data[i] = data[i + 1];
+                }
+                Object[] cpyData = new Object[data.length - 1];
+                System.arraycopy(data, 0, cpyData, 0, data.length - 1);
+                data = new Object[cpyData.length];
+                System.arraycopy(cpyData, 0, data, 0, cpyData.length);
+                size--;
+                return retValue;
+            }
+
+        }
     }
 
     @Override
@@ -60,21 +138,8 @@ public class ListClass implements java.util.List {
     }
 
     @Override
-    public boolean add(Object value) {
-        int listId = this.head;
-        if(listId == -1) {
-            this.head = 0;
-            data[0] = value;
-            cnt++;
-        } else {
-            while (next[listId] != -1) {
-                listId = next[listId];
-            }
-            next[listId] = ++listId;
-            data[listId] = value;
-            cnt++;
-        }
-        return true;
+    public boolean addAll(int index, Collection c) {
+        throw new UnsupportedOperationException("Этот метод не реализован!");
     }
 
     @Override
@@ -88,131 +153,13 @@ public class ListClass implements java.util.List {
     }
 
     @Override
-    public boolean addAll(int index, Collection c) {
-        throw new UnsupportedOperationException("Этот метод не реализован!");
-    }
-
-    @Override
     public void clear() {
         throw new UnsupportedOperationException("Этот метод не реализован!");
     }
 
     @Override
-    public Object get(int index) {
-        if(index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Список не поддерживает отрицательные индексы");
-        } else if(index >= size) {
-            throw new ArrayIndexOutOfBoundsException("Индекс искомого элемента превосходит количество элементов списка");
-        } if(index >= cnt) {
-            throw new ArrayIndexOutOfBoundsException("Элемент с таким индексом не найден");
-        } else {
-            int listId = this.head;
-            int foundId = -1;
-            if ((next[listId] == -1) || (index == 0)) {
-                return data[listId];
-            } else {
-                for (int i = 0; i < index; ++i) {
-                    foundId = next[listId];
-                    listId = foundId;
-                }
-            }
-            return data[foundId];
-        }
-    }
-
-    @Override
     public Object set(int index, Object element) {
         throw new UnsupportedOperationException("Этот метод не реализован!");
-    }
-
-    @Override
-    public void add(int index, Object value) {
-        if(index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Список не поддерживает отрицательные индексы");
-        } else if((index > cnt) || (index >= size)) {
-            throw new ArrayIndexOutOfBoundsException("Индекс вставляемого элемента превосходит размеры списка");
-        } else if(this.head == -1) {
-            this.head = 0;
-            data[0] = value;
-            cnt++;
-        } else {
-            int listId = this.head;
-            int headId = listId;
-            int beforePasteId = listId, pasteId = listId;
-            int beforeId = listId, foundId;
-
-            if (index == cnt) {
-                while (next[listId] != -1) {
-                    listId = next[listId];
-                }
-                next[listId] = ++listId;
-                data[listId] = value;
-                next[listId] = -1;
-                cnt++;
-            } else {
-                while (next[listId] != -1) {
-                    beforeId = listId;
-                    listId = next[listId];
-                }
-                foundId = listId;
-                ++listId;
-                data[listId] = data[foundId];
-                next[foundId] = -1;
-                next[listId] = -1;
-                next[beforeId] = listId;
-                if(cnt == 1) {
-                    headId = listId;
-                }
-
-                if (index == 0) {
-                    this.head = foundId;
-                    next[foundId] = headId;
-                    data[foundId] = value;
-                    cnt++;
-                } else {
-                    for (int i = 0; i < index; ++i) {
-                        beforePasteId = pasteId;
-                        pasteId = next[pasteId];
-                    }
-                    next[foundId] = next[beforePasteId];
-                    next[beforePasteId] = foundId;
-                    data[foundId] = value;
-                    cnt++;
-                }
-            }
-        }
-    }
-
-    @Override
-    public Object remove(int index) {
-        if(index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Список не поддерживает отрицательные индексы");
-        } else if(index >= size) {
-            throw new ArrayIndexOutOfBoundsException("Индекс удаляемого элемента превосходит размеры списка");
-        } if(index >= cnt) {
-            throw new ArrayIndexOutOfBoundsException("Элемент с таким индексом не найден и не может быть удален");
-        } else {
-            int listCurr = this.head;
-                if (index == 0) {
-                    System.out.println("Удаляемое значение: " + data[listCurr]);
-                    this.head = next[listCurr];
-                    next[listCurr] = -1;
-                    cnt--;
-                    return data[listCurr];
-                } else {
-                    int foundId = listCurr, beforeId = listCurr;
-                    for (int i = 0; i < index; ++i) {
-                        beforeId = foundId;
-                        foundId = next[foundId];
-                    }
-                    System.out.println("Удаляемое значение: " + data[foundId]);
-                    next[beforeId] = next[foundId];
-                    next[foundId] = -1;
-                    cnt--;
-                    return data[foundId];
-                }
-
-        }
     }
 
     @Override

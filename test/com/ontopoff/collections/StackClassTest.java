@@ -9,14 +9,14 @@ class StackClassTest {
     @Test
     @DisplayName("empty method test without elements")
     void testEmptyStackTrue() {
-        StackClass Stack = new StackClass(1);
+        StackClass Stack = new StackClass();
         Assertions.assertEquals(true, Stack.empty());
     }
 
     @Test
     @DisplayName("empty method test with element")
     void testEmptyStackFalse() {
-        StackClass Stack = new StackClass(1);
+        StackClass Stack = new StackClass();
         Stack.push(0);
         Assertions.assertEquals(false, Stack.empty());
     }
@@ -24,7 +24,7 @@ class StackClassTest {
     @Test
     @DisplayName("push method test")
     void testPush() {
-        StackClass Stack = new StackClass(2);
+        StackClass Stack = new StackClass();
         Stack.push(0);
         Stack.push(1);
         Assertions.assertEquals(1, Stack.peek());
@@ -33,17 +33,9 @@ class StackClassTest {
     }
 
     @Test
-    @DisplayName("push method test stack overflow")
-    void throwsExceptionPushOverflow() {
-        StackClass Stack = new StackClass(1);
-        Stack.push(0);
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class , () -> Stack.push(1));
-    }
-
-    @Test
     @DisplayName("pop method test")
     void testPop() {
-        StackClass Stack = new StackClass(2);
+        StackClass Stack = new StackClass();
         Stack.push(0);
         Stack.push(1);
         Assertions.assertEquals(1, Stack.pop());
@@ -51,16 +43,16 @@ class StackClassTest {
     }
 
     @Test
-    @DisplayName("push method test empty stack")
+    @DisplayName("pop method test empty stack")
     void throwsExceptionPopEmptyStack() {
-        StackClass Stack = new StackClass(1);
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class , () -> Stack.pop());
+        StackClass Stack = new StackClass();
+        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> Stack.pop());
     }
 
     @Test
     @DisplayName("peek method test")
     void testPeek() {
-        StackClass Stack = new StackClass(2);
+        StackClass Stack = new StackClass();
         Stack.push(0);
         Stack.push(1);
         Assertions.assertEquals(1, Stack.peek());
@@ -70,16 +62,18 @@ class StackClassTest {
     @Test
     @DisplayName("peek method test empty stack")
     void throwsExceptionPeekEmptyStack() {
-        StackClass Stack = new StackClass(1);
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class , () -> Stack.peek());
+        StackClass Stack = new StackClass();
+        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> Stack.peek());
     }
 
     @Test
     @DisplayName("count elements test")
     void testSize() {
-        StackClass Stack = new StackClass(2);
+        StackClass Stack = new StackClass();
         Stack.push(0);
         Assertions.assertEquals(1, Stack.size());
+        Stack.pop();
+        Assertions.assertEquals(0, Stack.size());
     }
 
 }
