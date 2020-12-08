@@ -56,8 +56,17 @@ public class EquationSolver implements Runnable {
             return "D < 0\n";
         }
         if (a == 0) {
-            double x = -(c / b);
-            return String.format("%f\n", x);
+            double x;
+            if(b != 0) {
+                x = -(c / b);
+                return String.format("%f\n", x);
+            } else {
+                if(c == 0) {
+                    return "x - любое число";
+                } else {
+                    return "Нет решений(a = 0,b = 0,c = 0)";
+                }
+            }
         }
         if (discriminant == 0) {
             double x = (-b / (2 * a));
