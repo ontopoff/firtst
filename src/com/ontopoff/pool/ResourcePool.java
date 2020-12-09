@@ -22,7 +22,12 @@ public class ResourcePool<V> {
         poolIsTerminated = false;
     }
 
-    public void createPool() {
+    public ResourcePool(int waitingTime, ObjectFactory<V> objectFactory) {
+        this(Runtime.getRuntime().availableProcessors(), waitingTime, objectFactory);
+    }
+
+
+        public void createPool() {
         long curTime;
         for (int i = 0; i < size; ++i) {
             curTime = System.currentTimeMillis();
