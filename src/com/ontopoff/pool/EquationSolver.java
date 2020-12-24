@@ -64,7 +64,7 @@ public class EquationSolver implements Runnable {
                 if(c == 0) {
                     return "x - любое число";
                 } else {
-                    return "Нет решений(a = 0,b = 0,c = 0)";
+                    return "Нет решений(a = 0,b = 0,c != 0)";
                 }
             }
         }

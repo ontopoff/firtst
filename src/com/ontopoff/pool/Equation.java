@@ -5,7 +5,12 @@ import java.io.FileWriter;
 public class Equation {
 
     public static void main(String[] args) {
-        int poolSize = 5;
+        int filePoolSize = Runtime.getRuntime().availableProcessors();
+        int threadPoolSize = Runtime.getRuntime().availableProcessors();
+        if(args.length == 2) {
+            filePoolSize = Integer.parseInt(args[0]);
+            threadPoolSize = Integer.parseInt(args[1]);
+        }
         int waitingTimeInMillis = 1000;
         int start, end;
         double[] coefficientA = new double[10000];
@@ -17,12 +22,12 @@ public class Equation {
             coefficientC[i] = (Math.random() * (10000 + 1)) - 5000;
         }
 
-        ResourcePool<Thread> threadPool = new ResourcePool<>(poolSize, waitingTimeInMillis, new CreateThreadClass());
-        ResourcePool<FileWriter> filePool = new ResourcePool<>(poolSize, waitingTimeInMillis, new CreateFileClass());
+        ResourcePool<Thread> threadPool = new ResourcePool<>(threadPoolSize, waitingTimeInMillis, new CreateThreadClass());
+        ResourcePool<FileWriter> filePool = new ResourcePool<>(filePoolSize, waitingTimeInMillis, new CreateFileClass());
 
-        for (int i = 0; i < poolSize; i++) {
-            start = (i * 10000) / poolSize;
-            end = ((i + 1) * 10000) / poolSize;
+        for (int i = 0; i < filePoolSize; i++) {
+            start = (i * 10000) / filePoolSize;
+            end = ((i + 1) * 10000) / filePoolSize;
             EquationSolver solverThread = new EquationSolver(coefficientA, coefficientB, coefficientC, start, end, filePool, threadPool);
             solverThread.execute(solverThread);
         }

@@ -14,6 +14,10 @@ public class CreateFileClass extends ObjectFactory<FileWriter> {
 
         String fileLogPath = System.getProperty("user.dir") + File.separator + "Log";
         File logDir = new File(fileLogPath);
+
+        if(currentLogFileId.get() == 0) {
+            rmLogDir(logDir);
+        }
         if (!logDir.exists()) {
             logDir.mkdir();
         }
@@ -23,6 +27,21 @@ public class CreateFileClass extends ObjectFactory<FileWriter> {
             return new FileWriter(logFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void rmLogDir(final File folder) {
+        if (folder.isDirectory()) {
+            File[] list = folder.listFiles();
+            if (list != null) {
+                for (int i = 0; i < list.length; i++) {
+                    File tmpF = list[i];
+                    if (tmpF.isDirectory()) {
+                        rmLogDir(tmpF);
+                    }
+                    tmpF.delete();
+                }
+            }
         }
     }
 

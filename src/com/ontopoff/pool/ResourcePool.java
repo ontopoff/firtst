@@ -26,14 +26,17 @@ public class ResourcePool<V> {
         this(Runtime.getRuntime().availableProcessors(), waitingTime, objectFactory);
     }
 
-
-        public void createPool() {
+    public void createPool() {
         long curTime;
         for (int i = 0; i < size; ++i) {
             curTime = System.currentTimeMillis();
             PoolElement<Long, V> newObj = new PoolElement<>(curTime, createObject());
             pool.add(newObj);
         }
+    }
+
+    public int getPoolSize() {
+        return this.pool.size();
     }
 
     public V createObject() {
@@ -82,9 +85,11 @@ public class ResourcePool<V> {
             if (newResource.isAlive(waitingTime)) {
                 return newResource;
             } else {
+                System.out.println("Error creating a new pool item. Null will be returned");
                 return null;
             }
         } else {
+            System.out.println("Error creating a new pool item. Null will be returned");
             return null;
         }
     }
